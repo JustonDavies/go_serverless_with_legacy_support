@@ -1,0 +1,29 @@
+# serverless.yml
+
+service: myservice
+
+provider:
+  name: aws
+
+package:
+ exclude:
+   - ./**
+ include:
+   - ./bin/**
+   - ./*.js
+
+functions:
+  greet:
+    handler: bin/main
+    runtime: go1.x
+    events:
+      - http:
+          path: greet
+          method: post
+  status:
+    handler: legacy.status
+    runtime: nodejs6.10
+    events:
+          - http:
+              path: status
+              method: get
